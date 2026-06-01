@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com" xmlns:fx="http://javafx.com" 
+            fx:controller="fintrack.controller.PrincipalController" stylesheets="@estilo.css">
+    <top>
+        <VBox spacing="5" styleClass="header-section">
+            <Label text="FinTrack - Painel Financeiro" styleClass="main-title"/>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="10">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <TableView fx:id="tableTransactions" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colDate" text="Data" prefWidth="100"/>
+                    <TableColumn fx:id="colDescription" text="Descrição" prefWidth="180"/>
+                    <TableColumn fx:id="colValue" text="Valor" prefWidth="100"/>
+                    <TableColumn fx:id="colKind" text="Tipo" prefWidth="90"/>
+                </columns>
+            </TableView>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Saldo Atual: " styleClass="saldo-label"/>
+                <Label fx:id="lblBalance" text="R$ 0,00" styleClass="saldo-valor"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <padding><Insets top="10" right="15" bottom="15" left="15"/></padding>
+            <Button text="Nova Transação" onAction="#openForm"/>
+            <Button text="Remover Selecionada" onAction="#removeTransaction" styleClass="btn-danger"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,8 @@
+.root { -fx-font-family: "Segoe UI", sans-serif; -fx-background-color: #f8f9fa; }
+.header-section { -fx-background-color: #2b3e50; -fx-padding: 15; }
+.main-title { -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-font-weight: bold; }
+.button { -fx-background-color: #6c757d; -fx-text-fill: white; -fx-cursor: hand; }
+.btn-primary { -fx-background-color: #007bff; }
+.btn-danger { -fx-background-color: #dc3545; }
+.saldo-label { -fx-font-size: 16px; -fx-font-weight: bold; }
+.saldo-valor { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #28a745; }
