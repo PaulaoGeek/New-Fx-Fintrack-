@@ -26,16 +26,23 @@ public class TransacaoDAOTest {
         if (conexaoEmMemoria != null) conexaoEmMemoria.close();
     }
 
-    @Test
+        @Test
     public void deveSalvarEListarTransacoes() {
-        dao.save(new Receita("Freelance", 3000.0, LocalDate.now()));
-        List<Transacao> resultado = dao.listAll();
+        // Cadastra um usuário de teste primeiro
+        dao.saveUser("Paulao");
+        
+        // Passa a categoria "Lazer" no final do construtor
+        dao.saveWithUser(new Receita("Freelance", 3000.0, LocalDate.now(), "Lazer"), "Paulao");
+        
+        List<Transacao> resultado = dao.listByByUser("Paulao");
         assertEquals(1, resultado.size());
         assertEquals("Freelance", resultado.get(0).getDescription());
     }
 
     @Test
     public void deveLancarExcecaoComDadosInvalidos() {
-        assertThrows(RuntimeException.class, () -> dao.save(null));
+        // Agora o método seguro espera receber o usuário ativo
+        assertThrows(RuntimeException.class, () -> dao.saveWithUser(null, "Paulao"));
     }
+
 }

@@ -1,36 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com" xmlns:fx="http://javafx.com" 
             fx:controller="fintrack.controller.PrincipalController" stylesheets="@estilo.css">
+    
     <top>
-        <VBox spacing="5" styleClass="header-section">
+        <VBox spacing="10" styleClass="header-section">
             <Label text="FinTrack - Painel Financeiro" styleClass="main-title"/>
-        </VBox>
-    </top>
-    <center>
-        <VBox spacing="10">
-            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-            <TableView fx:id="tableTransactions" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="colDate" text="Data" prefWidth="100"/>
-                    <TableColumn fx:id="colDescription" text="Descrição" prefWidth="180"/>
-                    <TableColumn fx:id="colValue" text="Valor" prefWidth="100"/>
-                    <TableColumn fx:id="colKind" text="Tipo" prefWidth="90"/>
-                </columns>
-            </TableView>
-            <HBox spacing="15" alignment="CENTER_LEFT">
-                <Label text="Saldo Atual: " styleClass="saldo-label"/>
-                <Label fx:id="lblBalance" text="R$ 0,00" styleClass="saldo-valor"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Perfil Ativo:" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="cbUsers" onAction="#handleUserChange" prefWidth="150" promptText="Selecione..."/>
+                <Button text="+ Novo Usuário" onAction="#createNewUser" style="-fx-background-color: #28a745;"/>
             </HBox>
         </VBox>
+    </top>
+    
+    <center>
+        <!-- Adicionando o painel de abas no centro da tela -->
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <!-- ABA 1: A sua tabela clássica com o saldo -->
+                <Tab text="Lista de Transações">
+                    <content>
+                        <VBox spacing="10">
+                            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                            <TableView fx:id="tableTransactions" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="colDate" text="Data" prefWidth="100"/>
+                                    <TableColumn fx:id="colDescription" text="Descrição" prefWidth="180"/>
+                                    <TableColumn fx:id="colValue" text="Valor" prefWidth="100"/>
+                                    <TableColumn fx:id="colKind" text="Tipo" prefWidth="90"/>
+                                </columns>
+                            </TableView>
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <Label text="Saldo Atual: " styleClass="saldo-label"/>
+                                <Label fx:id="lblBalance" text="R$ 0,00" styleClass="saldo-valor"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+                
+                <!-- ABA 2: O novo Gráfico de Pizza Visual -->
+                <Tab text="Gráfico de Resumo" onSelectionChanged="#updateChart">
+                    <content>
+                        <StackPane>
+                            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                            <!-- Componente nativo do JavaFX para gráficos de pizza -->
+                            <PieChart fx:id="pieChart" title="Proporção de Receitas vs Despesas" legendSide="BOTTOM"/>
+                        </StackPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </center>
+    
     <bottom>
         <HBox spacing="10" alignment="CENTER_RIGHT">
             <padding><Insets top="10" right="15" bottom="15" left="15"/></padding>
-            <Button text="Nova Transação" onAction="#openForm"/>
+            <Button text="Nova Transação" onAction="#openForm" styleClass="btn-primary"/>
+            <Button text="Editar Selecionada" onAction="#editTransaction" style="-fx-background-color: #ffc107; -fx-text-fill: black;"/>
             <Button text="Remover Selecionada" onAction="#removeTransaction" styleClass="btn-danger"/>
         </HBox>
     </bottom>
